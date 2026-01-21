@@ -1,6 +1,6 @@
 # evpn_agent - OpenStack EVPN Agent
 #
-# Copyright (C) 2024-2025  Tore Anderson <tore@redpill-linpro.com>
+# Copyright (C) 2024-2026  Tore Anderson <tore@redpill-linpro.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 
 import ipaddress
 import logging
+import os
 import re
 from tempfile import NamedTemporaryFile
 from textwrap import dedent
@@ -25,7 +26,10 @@ from .utils import cmd
 
 log = logging.getLogger(__name__)
 
-frrlib = SourceFileLoader("frrlib", "/usr/libexec/frr/frr-reload.py").load_module()
+for file in ("/usr/lib/frr/frr-reload.py", "/usr/libexec/frr/frr-reload.py"):
+    if os.path.isfile(file):
+        frrlib = SourceFileLoader("frrlib", file).load_module()
+        break
 
 vtysh = frrlib.Vtysh()
 
