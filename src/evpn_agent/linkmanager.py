@@ -1,6 +1,6 @@
 # evpn_agent - OpenStack EVPN Agent
 #
-# Copyright (C) 2024  Tore Anderson <tore@redpill-linpro.com>
+# Copyright (C) 2024-2026  Tore Anderson <tore@redpill-linpro.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ known_links = []
 
 def update():
     global state
-    state = jsoncmd(["ip", "-j", "-d", "link", "show"])
+    state = jsoncmd(["ip", "-j", "-d", "-s", "link", "show"])
 
 
 def finalise():
